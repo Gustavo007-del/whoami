@@ -8,6 +8,6 @@
 - [x] Step 4: Update `getActiveQuestions()` to filter by gender
 - [x] Step 5: Fix duplicate question ID 15 and re-number questions
 - [x] Step 6: Add 10 new personality types to `data/questions.ts`
-- [ ] Step 7: Rewrite `calculatePersonality` in `app/quiz/page.tsx` to wire up new types
-- [ ] Step 8: Verify build compiles cleanly
+- [x] Step 7: Rewrite `calculatePersonality` in `app/quiz/page.tsx` to wire up new types
+- [x] Step 8: Verify build compiles cleanly ✅
 

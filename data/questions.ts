@@ -53,8 +53,7 @@ export const questions: Question[] = [
     type: 'choice',
     options: ['Me with two women', 'Me with two men', 'Any mix with mutual chemistry', 'I would need to talk it through first'],
     category: 'threesome_preference',
-    gender: 'girl',
-    dependsOn: { questionId: 5, answers: ['Yes, definitely', 'Maybe, with the right people'] },
+    dependsOn: { questionId: 5, answers: ['Yes, definitely', 'Maybe, with the right people', "Curious, but unsure"] },
   },
   {
     id: 7,
@@ -83,6 +82,8 @@ export const questions: Question[] = [
     type: 'choice',
     options: ['Yes, I enjoy it.', 'Sometimes, depending on the situation.', 'No, I prefer not to.', 'I havent tried it / Id rather not answer.'],
     category: 'date_vibe',
+    gender: 'girl',
+
   },
   {
     id: 11,
@@ -97,9 +98,31 @@ export const questions: Question[] = [
     type: 'choice',
     options: ['Over 7 inches', '3 to 5 inches', '5 to 7 inches', 'Under 3 inches'],
     category: 'flirting',
+    gender: 'girl',
   },
   {
     id: 13,
+    text: 'Do you enjoy dirty sex?',
+    type: 'choice',
+    options: ['Yes, I enjoy it a lot.', 'Yes, occasionally.', 'No', 'I havent explored it'],
+    category: 'flirting',
+  },
+  {
+    id: 15,
+    text: 'Do you feel the need to have sex regularly?',
+    type: 'choice',
+    options: ['Yes, I have a high sex drive.', 'Yes, occasionally.', 'No'],
+    category: 'flirting',
+  },
+  {
+    id: 15,
+    text: 'How would you feel about your partner having sex with someone else? with your consent',
+    type: 'choice',
+    options: ['Id be completely comfortable with it.', 'Id be open to discussing or exploring it.', 'Im not sure', 'No'],
+    category: 'flirting',
+  },
+  {
+    id: 14,
     text: 'Who are your three most recent crushes? (Porn stars and tv stars are not allowed.)',
     type: 'text',
     category: 'date_idea',

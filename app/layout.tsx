@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Who Are You? - Anonymous Self-Discovery",
   description: "Discover your true self through honest self-reflection. Completely anonymous.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

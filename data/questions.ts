@@ -4,6 +4,7 @@ export interface Question {
   type: 'scale' | 'choice' | 'text';
   options?: string[];
   category: string;
+  gender?: 'boy' | 'girl';
   dependsOn?: {
     questionId: number;
     answers: string[];
@@ -20,16 +21,16 @@ export const questions: Question[] = [
   },
   {
     id: 2,
-    text: 'Pick your after-dark energy.',
+    text: 'How often do you masturbate?',
     type: 'choice',
-    options: ['Confident and in charge', 'Playful and teasing', 'Quiet but intense', 'Sweet with a wild side'],
+    options: ['Multiple times a day', 'A few times a week', 'Occasionally', 'Rarely or never'],
     category: 'vibe',
   },
   {
     id: 3,
-    text: 'How often do you make time for solo pleasure?',
+    text: 'Which age group are you generally most attracted to?',
     type: 'scale',
-    options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Very often'],
+    options: ['10-15', '15-18', '18-28', '30-60'],
     category: 'confidence',
   },
   {
@@ -52,53 +53,54 @@ export const questions: Question[] = [
     type: 'choice',
     options: ['Me with two women', 'Me with two men', 'Any mix with mutual chemistry', 'I would need to talk it through first'],
     category: 'threesome_preference',
+    gender: 'girl',
     dependsOn: { questionId: 5, answers: ['Yes, definitely', 'Maybe, with the right people'] },
   },
   {
     id: 7,
-    text: 'What role feels closest to your natural style?',
+    text: 'Have you ever been attracted to an very older adult',
     type: 'choice',
-    options: ['I like leading', 'I like being pursued', 'I switch depending on the mood', 'I like equal give-and-take'],
+    options: ['Yes, frequently.', 'Yes, a few times.', 'No, never.', 'One time'],
     category: 'style',
   },
   {
     id: 8,
-    text: 'Your boldest green flag is…',
+    text: 'Have you ever been attracted to an very younger adult',
     type: 'choice',
-    options: ['Clear communication', 'Respecting boundaries', 'Making people feel wanted', 'Knowing exactly what I want'],
+    options: ['Yes, frequently.', 'Yes, a few times.', 'No, never.', 'One time'],
     category: 'green_flag',
   },
   {
     id: 9,
-    text: 'How do you prefer to set boundaries?',
+    text: 'Have you ever been attracted to anyone in your family',
     type: 'choice',
-    options: ['Directly, before anything starts', 'In the moment, with honest check-ins', 'Slowly, as trust builds', 'I am still learning how to say it'],
+    options: ['No, never', 'Yes','Yes, more than one'],
     category: 'boundaries',
   },
   {
     id: 10,
-    text: 'What makes a date feel dangerously good?',
+    text: 'Do you enjoy swallowing during oral sex?',
     type: 'choice',
-    options: ['A sharp conversation', 'Unreal chemistry', 'A little mystery', 'Feeling completely safe to be myself'],
+    options: ['Yes, I enjoy it.', 'Sometimes, depending on the situation.', 'No, I prefer not to.', 'I havent tried it / Id rather not answer.'],
     category: 'date_vibe',
   },
   {
     id: 11,
-    text: 'How do you feel about making the first move?',
+    text: 'How many crushes have you had in the past three months?',
     type: 'choice',
-    options: ['I love it', 'I can if the vibe is right', 'I prefer clear signals first', 'I would rather be approached'],
+    options: ['More than three', 'Two or three', 'One', 'None'],
     category: 'initiative',
   },
   {
     id: 12,
-    text: 'When things get flirty, your strongest move is…',
+    text: 'What penis size do you personally prefer?',
     type: 'choice',
-    options: ['Eye contact', 'Witty messages', 'Being unexpectedly honest', 'Keeping them guessing'],
+    options: ['Over 7 inches', '3 to 5 inches', '5 to 7 inches', 'Under 3 inches'],
     category: 'flirting',
   },
   {
     id: 13,
-    text: 'Describe your ideal bold-but-respectful date night.',
+    text: 'Who are your three most recent crushes? (Porn stars and tv stars are not allowed.)',
     type: 'text',
     category: 'date_idea',
   },

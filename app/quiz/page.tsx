@@ -19,11 +19,12 @@ interface BasicInfo {
 type Answer = string | number;
 type Answers = Record<number, Answer>;
 
-function getActiveQuestions(answers: Answers) {
+function getActiveQuestions(answers: Answers, gender?: string) {
   return questions.filter(
     (question) =>
-      !question.dependsOn ||
-      question.dependsOn.answers.includes(String(answers[question.dependsOn.questionId])),
+      (!question.gender || question.gender === gender) &&
+      (!question.dependsOn ||
+        question.dependsOn.answers.includes(String(answers[question.dependsOn.questionId]))),
   );
 }
 
@@ -38,7 +39,7 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
   const [basicInfo, setBasicInfo] = useState<BasicInfo | null>(null);
   const [backgroundImage, setBackgroundImage] = useState<string>();
   const [ageRestricted, setAgeRestricted] = useState(false);
-  const activeQuestions = getActiveQuestions(answers);
+  const activeQuestions = getActiveQuestions(answers, basicInfo?.gender);
   const question = activeQuestions[currentQuestion];
 
   useEffect(() => {
@@ -157,7 +158,7 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
       return;
     }
 
-    const nextQuestions = getActiveQuestions(updatedAnswers);
+    const nextQuestions = getActiveQuestions(updatedAnswers, basicInfo?.gender);
     const nextQuestionIndex = nextQuestions.findIndex((item) => item.id === question.id) + 1;
     setIsSavingAnswer(false);
 

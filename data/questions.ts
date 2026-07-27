@@ -115,7 +115,7 @@ export const questions: Question[] = [
     category: 'flirting',
   },
   {
-    id: 15,
+    id: 16,
     text: 'How would you feel about your partner having sex with someone else? with your consent',
     type: 'choice',
     options: ['Id be completely comfortable with it.', 'Id be open to discussing or exploring it.', 'Im not sure', 'No'],
@@ -149,5 +149,55 @@ export const personalityTypes = {
     name: 'The Soft Rebel',
     description: 'You are selective, self-aware, and quietly daring. You make your own rules while keeping trust, comfort, and real chemistry first.',
     icon: '🌙',
+  },
+  the_sex_monster: {
+    name: 'The Sex Monster',
+    description: 'Your drive is powerful and unapologetic. You crave intensity, adventure, and pushing boundaries with mutual enthusiasm.',
+    icon: '🦁',
+  },
+  the_innocent_girl: {
+    name: 'The Innocent Girl',
+    description: 'You carry a sweet exterior with a hidden depth of passion. Curious, warm, and quietly discovering your desires.',
+    icon: '🎀',
+  },
+  the_innocent_boy: {
+    name: 'The Innocent Boy',
+    description: 'Gentle and approachable on the surface, with a surprising streak of longing beneath. You are discovering what lights you up.',
+    icon: '🐺',
+  },
+  the_explorer: {
+    name: 'The Explorer',
+    description: 'You are curious about it all. New experiences, different dynamics, and uncharted chemistry excite you more than routine ever could.',
+    icon: '🧭',
+  },
+  the_dominant: {
+    name: 'The Dominant',
+    description: 'You take the lead naturally and confidently. Your strength lies in knowing what you want and creating space for others to surrender safely.',
+    icon: '👑',
+  },
+  the_gentle_soul: {
+    name: 'The Gentle Soul',
+    description: 'You value tenderness, trust, and emotional safety above all else. Your softness is not weakness — it is your superpower.',
+    icon: '🕊️',
+  },
+  the_romantic: {
+    name: 'The Romantic',
+    description: 'You believe the best connections blend heart and heat. Love, longing, and intimacy are inseparable for you.',
+    icon: '💕',
+  },
+  the_wild_card: {
+    name: 'The Wild Card',
+    description: 'Unpredictable, bold, and impossible to pin down. You keep people guessing and the energy electric.',
+    icon: '🎲',
+  },
+  the_siren: {
+    name: 'The Siren',
+    description: 'Magnetic, intuitive, and effortlessly alluring. You draw people in with your presence and leave a lasting impression.',
+    icon: '🧜‍♀️',
+  },
+  the_submissive: {
+    name: 'The Submissive',
+    description: 'You find freedom in surrender. Trust, devotion, and being guided by someone you trust brings you deep satisfaction.',
+    icon: '🌸',
   },
 };

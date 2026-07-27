@@ -87,40 +87,85 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
     if (saveError) throw saveError;
   };
 
-  const calculatePersonality = (submittedAnswers: Answers) => {
-    const confidence = Number(submittedAnswers[3] ?? 0) + Number(submittedAnswers[4] ?? 0);
-    const vibe = submittedAnswers[2];
-    const style = submittedAnswers[7];
-    const adventurous = submittedAnswers[5] === 'Yes, definitely' ? 20 : submittedAnswers[5] === 'Maybe, with the right people' ? 14 : submittedAnswers[5] === 'Curious, but unsure' ? 8 : 2;
-    const sexScore = Math.min(
-      100,
-      Math.round(
-        confidence * 6 +
-          adventurous +
-          (vibe === 'Confident and in charge' ? 12 : 6) +
-          (style === 'I like leading' || style === 'I switch depending on the mood' ? 10 : 4),
-      ),
-    );
-    const type =
-      vibe === 'Confident and in charge' || style === 'I like leading'
-        ? 'the_baddie'
-        : vibe === 'Quiet but intense' || style === 'I like being pursued'
-          ? 'the_bad_boy'
-          : confidence >= 7
-            ? 'the_tease'
-            : 'the_soft_rebel';
+  const calculatePersonality = (submittedAnswers: Answers, gender?: string) => {
+    // --- Dimension scoring maps ---
+    const q2Map: Record<string, number> = { 'Multiple times a day': 4, 'A few times a week': 3, 'Occasionally': 2, 'Rarely or never': 1 };
+    const q5Map: Record<string, number> = { 'Yes, definitely': 4, 'Maybe, with the right people': 3, 'Curious, but unsure': 2, 'Not for me': 1 };
+    const q13Map: Record<string, number> = { 'Yes, I enjoy it a lot.': 4, 'Yes, occasionally.': 3, 'No': 1, 'I havent explored it': 2 };
+    const q15Map: Record<string, number> = { 'Yes, I have a high sex drive.': 4, 'Yes, occasionally.': 3, 'No': 1 };
+    const q16Map: Record<string, number> = { 'Id be completely comfortable with it.': 4, 'Id be open to discussing or exploring it.': 3, 'Im not sure': 2, 'No': 1 };
+    const q11Map: Record<string, number> = { 'More than three': 4, 'Two or three': 3, 'One': 2, 'None': 1 };
+
+    // sexDrive (0-10): Q2 masturbation, Q13 dirty sex, Q15 need regular sex
+    const driveQ2 = q2Map[String(submittedAnswers[2] ?? '')] ?? 2;
+    const driveQ13 = q13Map[String(submittedAnswers[13] ?? '')] ?? 2;
+    const driveQ15 = q15Map[String(submittedAnswers[15] ?? '')] ?? 2;
+    const sexDrive = Math.round((driveQ2 + driveQ13 + driveQ15) / 12 * 10);
+
+    // adventurous (0-10): Q5 threesome, Q16 partner sharing
+    const advQ5 = q5Map[String(submittedAnswers[5] ?? '')] ?? 2;
+    const advQ16 = q16Map[String(submittedAnswers[16] ?? '')] ?? 2;
+    const adventurous = Math.round((advQ5 + advQ16) / 8 * 10);
+
+    // innocence (0-10): inverse of sexDrive indicators, Q4 privacy
+    const innocenceQ2 = 5 - driveQ2;
+    const q4Score = Number(submittedAnswers[4] ?? 3);
+    const innocence = Math.round((innocenceQ2 + (6 - q4Score)) / 8 * 10);
+
+    // dominance (0-10): Q4 openness, Q5 adventurous initiatiation, Q2 drive
+    const dominance = Math.round((Number(submittedAnswers[4] ?? 3) + advQ5 + driveQ2) / 12 * 10);
+
+    // romance (0-10): Q4 openness, Q11 crushes
+    const romanceQ4 = Number(submittedAnswers[4] ?? 3);
+    const romanceQ11 = q11Map[String(submittedAnswers[11] ?? '')] ?? 2;
+    const romance = Math.round((romanceQ4 + romanceQ11) / 8 * 10);
+
+    // --- Determine personality type ---
+    let type: string;
+
+    if (sexDrive >= 8 && adventurous >= 5) {
+      type = 'the_sex_monster';
+    } else if (gender === 'girl' && sexDrive >= 5 && innocence >= 3) {
+      type = 'the_innocent_girl';
+    } else if (gender === 'boy' && sexDrive >= 5 && innocence >= 3) {
+      type = 'the_innocent_boy';
+    } else if (adventurous >= 7) {
+      type = 'the_explorer';
+    } else if (dominance >= 7 && sexDrive >= 4) {
+      type = 'the_dominant';
+    } else if (innocence >= 6 && romance >= 4) {
+      type = 'the_gentle_soul';
+    } else if (romance >= 6 && sexDrive >= 2) {
+      type = 'the_romantic';
+    } else if (adventurous >= 4 && dominance >= 4) {
+      type = 'the_wild_card';
+    } else if (gender === 'girl' && dominance >= 4) {
+      type = 'the_siren';
+    } else if (innocence >= 5) {
+      type = 'the_submissive';
+    } else if (dominance >= 5 && sexDrive >= 4) {
+      type = 'the_baddie';
+    } else if (adventurous >= 4 && dominance >= 3) {
+      type = 'the_bad_boy';
+    } else if (sexDrive >= 4 && adventurous >= 3) {
+      type = 'the_tease';
+    } else {
+      type = 'the_soft_rebel';
+    }
+
+    const sexScore = Math.min(100, Math.round(sexDrive * 6 + adventurous * 4 + (dominance >= 5 ? 15 : 5)));
 
     return {
       type,
-      scores: { confidence, openness: Number(submittedAnswers[4] ?? 0), sexScore },
+      scores: { sexDrive, adventurous, innocence, dominance, romance },
       sexScore,
-      description: personalityTypes[type].description,
+      description: personalityTypes[type as keyof typeof personalityTypes]?.description ?? '',
     };
   };
 
   const handleSubmit = async (submittedAnswers: Answers) => {
     setIsSubmitting(true);
-    const result = calculatePersonality(submittedAnswers);
+    const result = calculatePersonality(submittedAnswers, basicInfo?.gender);
     const { error: saveError } = await supabase.from('results').insert({
       session_id: session,
       nickname: basicInfo?.nickname,

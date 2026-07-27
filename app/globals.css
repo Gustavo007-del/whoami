@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root { --ink: #17233a; --muted: #64748b; --surface: #ffffff; --line: #e2e8f0; --brand: #5b5bd6; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: #f8fafc; font-family: Arial, Helvetica, sans-serif; }
+button, input, textarea { font: inherit; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #a5b4fc; outline-offset: 2px; }
+
+.quiz-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgb(15 23 42 / 82%), rgb(67 56 202 / 52%)),
+    radial-gradient(circle at 85% 18%, #c4b5fd 0, transparent 32%),
+    radial-gradient(circle at 12% 86%, #bae6fd 0, transparent 36%),
+    #334155;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.quiz-shell::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  content: '';
+  background-image: var(--quiz-background-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.quiz-shell::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  background: linear-gradient(180deg, rgb(15 23 42 / 48%), rgb(30 27 75 / 68%));
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.quiz-content { position: relative; }
+
+@media (max-width: 640px) {
+  .quiz-shell { background-position: center; }
 }

@@ -44,7 +44,7 @@ export default function DisclaimerDialog({ onAccept }: { onAccept: () => void })
         ) : (
           <>
             <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-indigo-100 text-xl">ℹ</div>
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[.18em] text-indigo-600">One more thing</p>
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[.18em] text-indigo-600">One more thing..</p>
             <h2 id="privacy-title" className="text-2xl font-bold tracking-tight text-slate-900">Some questions are Direct and dont see find it as Disturbing, Have positive attitude and Answer Sincierly to Find interesting results</h2>
             <p className="mt-3 leading-7 text-slate-600">Dont take the test if you are panning to give false answers and also you are fooling yourself, this test only shows your inner true self,</p>
             <div className="my-6 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-700">We donot store or ask for your personal details. dont give any personal details like name number on the site.</div>

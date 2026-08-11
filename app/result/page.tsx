@@ -34,7 +34,6 @@ export default function ResultPage({ searchParams }: { searchParams: Promise<Sea
   const handleRetake = () => {
     localStorage.removeItem('quizSessionId');
     localStorage.removeItem('basicInfo');
-    localStorage.removeItem('disclaimerAccepted');
     router.push('/');
   };
 

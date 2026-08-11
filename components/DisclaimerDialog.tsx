@@ -1,19 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function DisclaimerDialog({ onAccept }: { onAccept: () => void }) {
-  const [visible, setVisible] = useState(true);
   const [step, setStep] = useState<1 | 2>(1);
-
-  useEffect(() => {
-    if (localStorage.getItem('disclaimerAccepted') === 'true') {
-      setVisible(false);
-      onAccept();
-    }
-  }, [onAccept]);
-
-  if (!visible) return null;
 
   const accept = () => {
     if (step === 1) {
@@ -21,8 +11,6 @@ export default function DisclaimerDialog({ onAccept }: { onAccept: () => void })
       return;
     }
 
-    localStorage.setItem('disclaimerAccepted', 'true');
-    setVisible(false);
     onAccept();
   };
 

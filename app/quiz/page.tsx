@@ -88,10 +88,7 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
   };
 
   const calculatePersonality = (submittedAnswers: Answers, gender?: string) => {
-    const isAdult = submittedAnswers[21] === "Yes, I'm 18+";
     const matchesSluttyPattern =
-      isAdult &&
-      gender === 'girl' &&
       ['Occasionally', 'Multiple times a day'].includes(String(submittedAnswers[2] ?? '')) &&
       String(submittedAnswers[5] ?? '') !== 'Not for me' &&
       String(submittedAnswers[8] ?? '') !== 'No, never.' &&
@@ -101,21 +98,21 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
     // --- Dimension scoring maps ---
     const q2Map: Record<string, number> = { 'Multiple times a day': 4, 'A few times a week': 3, 'Occasionally': 2, 'Rarely or never': 1 };
     const q5Map: Record<string, number> = { 'Yes, definitely': 4, 'Maybe, with the right people': 3, 'Curious, but unsure': 2, 'Not for me': 1 };
-    const q13Map: Record<string, number> = { 'Yes, I enjoy it a lot.': 4, 'Yes, occasionally.': 3, 'No': 1, 'I havent explored it': 2 };
-    const q15Map: Record<string, number> = { 'Yes, I have a high sex drive.': 4, 'Yes, occasionally.': 3, 'No': 1 };
-    const q16Map: Record<string, number> = { 'Id be completely comfortable with it.': 4, 'Id be open to discussing or exploring it.': 3, 'Im not sure': 2, 'No': 1 };
+    const q14Map: Record<string, number> = { 'Yes, I enjoy it a lot.': 4, 'Yes, occasionally.': 3, 'No': 1, 'I havent explored it': 2 };
+    const q16Map: Record<string, number> = { 'Yes, I have a high sex drive.': 4, 'Yes, occasionally.': 3, 'No': 1 };
+    const q17Map: Record<string, number> = { 'Id be completely comfortable with it.': 4, 'Id be open to discussing or exploring it.': 3, 'Im not sure': 2, 'No': 1 };
     const q11Map: Record<string, number> = { 'More than three': 4, 'Two or three': 3, 'One': 2, 'None': 1 };
 
-    // sexDrive (0-10): Q2 masturbation, Q13 dirty sex, Q15 need regular sex
+    // sexDrive (0-10): Q2 masturbation, Q14 dirty sex, Q16 need regular sex
     const driveQ2 = q2Map[String(submittedAnswers[2] ?? '')] ?? 2;
-    const driveQ13 = q13Map[String(submittedAnswers[13] ?? '')] ?? 2;
-    const driveQ15 = q15Map[String(submittedAnswers[15] ?? '')] ?? 2;
-    const sexDrive = Math.round((driveQ2 + driveQ13 + driveQ15) / 12 * 10);
+    const driveQ14 = q14Map[String(submittedAnswers[14] ?? '')] ?? 2;
+    const driveQ16 = q16Map[String(submittedAnswers[16] ?? '')] ?? 2;
+    const sexDrive = Math.round((driveQ2 + driveQ14 + driveQ16) / 12 * 10);
 
-    // adventurous (0-10): Q5 threesome, Q16 partner sharing
+    // adventurous (0-10): Q5 threesome, Q17 partner sharing
     const advQ5 = q5Map[String(submittedAnswers[5] ?? '')] ?? 2;
-    const advQ16 = q16Map[String(submittedAnswers[16] ?? '')] ?? 2;
-    const adventurous = Math.round((advQ5 + advQ16) / 8 * 10);
+    const advQ17 = q17Map[String(submittedAnswers[17] ?? '')] ?? 2;
+    const adventurous = Math.round((advQ5 + advQ17) / 8 * 10);
 
     // innocence (0-10): inverse of sexDrive indicators, Q4 privacy
     const innocenceQ2 = 5 - driveQ2;
@@ -284,7 +281,7 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
             <>
               <textarea value={(answers[question.id] as string) || ''} onChange={(event) => handleTextChange(event.target.value)} placeholder="Tell us your vibe…" rows={4} className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 text-slate-900 focus:border-indigo-500" />
               <button onClick={() => void advanceWithAnswer(answers[question.id])} disabled={!answers[question.id] || isSavingAnswer || isSubmitting} className="mt-6 w-full rounded-xl bg-indigo-600 py-4 text-lg font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50">
-                {isSavingAnswer || isSubmitting ? 'Saving…' : 'See my result'}
+                {isSavingAnswer || isSubmitting ? 'Saving…' : 'Next'}
               </button>
             </>
           )}

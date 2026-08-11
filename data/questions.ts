@@ -17,6 +17,13 @@ export const questions: Question[] = [
     text: 'This is AI evaluated test we do not know your personal details or you, even though do you agree to use your response for AI ehancement, Press No to Opt out so no response is saved or shared?',
     type: 'choice',
     options: ["Yes", 'No'],
+    category: 'consent',
+  },
+  {
+    id: 21,
+    text: 'Are you 18 or older?',
+    type: 'choice',
+    options: ["Yes, I'm 18+", 'No'],
     category: 'age_gate',
   },
   {

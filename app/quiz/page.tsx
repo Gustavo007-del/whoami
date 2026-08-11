@@ -88,7 +88,7 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
   };
 
   const calculatePersonality = (submittedAnswers: Answers, gender?: string) => {
-    const isAdult = submittedAnswers[1] === "Yes, I'm 18+";
+    const isAdult = submittedAnswers[21] === "Yes, I'm 18+";
     const matchesSluttyPattern =
       isAdult &&
       gender === 'girl' &&
@@ -196,7 +196,7 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
   const advanceWithAnswer = async (answer: Answer) => {
     if (!question || isSavingAnswer || isSubmitting) return;
 
-    if (question.id === 1 && answer !== "Yes, I'm 18+") {
+    if (question.category === 'age_gate' && answer !== "Yes, I'm 18+") {
       setAgeRestricted(true);
       return;
     }

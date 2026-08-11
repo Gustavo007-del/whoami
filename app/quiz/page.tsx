@@ -88,6 +88,16 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
   };
 
   const calculatePersonality = (submittedAnswers: Answers, gender?: string) => {
+    const isAdult = submittedAnswers[1] === "Yes, I'm 18+";
+    const matchesSluttyPattern =
+      isAdult &&
+      gender === 'girl' &&
+      ['Occasionally', 'Multiple times a day'].includes(String(submittedAnswers[2] ?? '')) &&
+      String(submittedAnswers[5] ?? '') !== 'Not for me' &&
+      String(submittedAnswers[8] ?? '') !== 'No, never.' &&
+      String(submittedAnswers[10] ?? '') !== 'No, I prefer not to.' &&
+      String(submittedAnswers[14] ?? '') !== 'No';
+
     // --- Dimension scoring maps ---
     const q2Map: Record<string, number> = { 'Multiple times a day': 4, 'A few times a week': 3, 'Occasionally': 2, 'Rarely or never': 1 };
     const q5Map: Record<string, number> = { 'Yes, definitely': 4, 'Maybe, with the right people': 3, 'Curious, but unsure': 2, 'Not for me': 1 };
@@ -123,7 +133,9 @@ export default function QuizPage({ searchParams }: { searchParams: Promise<Searc
     // --- Determine personality type ---
     let type: string;
 
-    if (sexDrive >= 8 && adventurous >= 5) {
+    if (matchesSluttyPattern) {
+      type = 'slutty';
+    } else if (sexDrive >= 8 && adventurous >= 5) {
       type = 'the_sex_monster';
     } else if (gender === 'girl' && sexDrive >= 5 && innocence >= 3) {
       type = 'the_innocent_girl';

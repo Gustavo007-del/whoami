@@ -14,9 +14,9 @@ export interface Question {
 export const questions: Question[] = [
   {
     id: 1,
-    text: 'This game is for adults only. Are you 18 or older?',
+    text: 'This is AI evaluated test we do not know your personal details or you, even though do you agree to use your response for AI ehancement, Press No to Opt out so no response is saved or shared?',
     type: 'choice',
-    options: ["Yes, I'm 18+", 'No, I am under 18'],
+    options: ["Yes, I'm 18+", 'No'],
     category: 'age_gate',
   },
   {
@@ -71,7 +71,7 @@ export const questions: Question[] = [
   },
   {
     id: 9,
-    text: 'Have you ever been attracted to anyone in your family',
+    text: 'Have you ever been attracted to anyone in your closed circle',
     type: 'choice',
     options: ['No, never', 'Yes','Yes, more than one'],
     category: 'boundaries',
@@ -102,30 +102,58 @@ export const questions: Question[] = [
   },
   {
     id: 13,
+    text: 'What penis color do you like?',
+    type: 'choice',
+    options: ['Black', 'Pink', 'White'],
+    category: 'flirting',
+  },
+  {                               
+    id: 14,
     text: 'Do you enjoy dirty sex?',
     type: 'choice',
     options: ['Yes, I enjoy it a lot.', 'Yes, occasionally.', 'No', 'I havent explored it'],
     category: 'flirting',
   },
-  {
+  {                               
     id: 15,
+    text: 'How many people have you Kissed with?',
+    type: 'text',
+    category: 'flirting',
+  },
+  {
+    id: 16,
     text: 'Do you feel the need to have sex regularly?',
     type: 'choice',
     options: ['Yes, I have a high sex drive.', 'Yes, occasionally.', 'No'],
     category: 'flirting',
   },
   {
-    id: 16,
+    id: 17,
     text: 'How would you feel about your partner having sex with someone else? with your consent',
     type: 'choice',
     options: ['Id be completely comfortable with it.', 'Id be open to discussing or exploring it.', 'Im not sure', 'No'],
     category: 'flirting',
   },
   {
-    id: 14,
-    text: 'Who are your three most recent crushes? (Porn stars and tv stars are not allowed.)',
+    id: 18,
+    text: 'How would you describe the taste of Cum',
     type: 'text',
     category: 'date_idea',
+    
+  },
+  {
+    id: 19,
+    text: 'Share your most Dirty Thought',
+    type: 'text',
+    category: 'date_idea',
+    gender: 'girl',
+  },
+  {
+    id: 20,
+    text: 'Do you like yourself to be engaged in forcefull sex',
+    type: 'text',
+    category: 'date_idea',
+    gender: 'girl',
   },
 ];
 
@@ -154,6 +182,11 @@ export const personalityTypes = {
     name: 'The Sex Monster',
     description: 'Your drive is powerful and unapologetic. You crave intensity, adventure, and pushing boundaries with mutual enthusiasm.',
     icon: '🦁',
+  },
+  slutty: {
+    name: 'Slutty',
+    description: ' You crave sex more, Crave New experiences, ready for anything but is very shy to express.',
+    icon: '🌸',
   },
   the_innocent_girl: {
     name: 'The Innocent Girl',
